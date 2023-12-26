@@ -2,25 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Run Bash Script') {
+        stage('Checkout SCM') {
             steps {
                 script {
-                    // Clean workspace before checkout
-                    deleteDir()
+                    checkout scm
+                }
+            }
+        }
 
-                    // Checkout the source code from your Git repository
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/abdelrahmanMo3tazz/temp5.git']]])
-
-                    // Run the Bash script and capture the output
-                    def scriptOutput
-                    if (isUnix()) {
-                        scriptOutput = sh(script: 'chmod +x test.sh && ./test.sh', returnStdout: true).trim()
-                    } else {
-                        scriptOutput = bat(script: 'test.bat', returnStdout: true).trim()
-                    }
-
-                    // Print the script output
-                    echo "Script Output: ${scriptOutput}"
+        stage('Run Batch Script') {
+            steps {
+                script {
+                    bat 'test.bat' // Use 'bat' instead of 'sh' for Windows
                 }
             }
         }
