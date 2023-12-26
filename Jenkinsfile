@@ -12,7 +12,12 @@ pipeline {
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/abdelrahmanMo3tazz/temp5.git']]])
 
                     // Run the Bash script and capture the output
-                    def scriptOutput = sh(script: 'chmod +x test.sh && ./test.sh', returnStdout: true).trim()
+                    def scriptOutput
+                    if (isUnix()) {
+                        scriptOutput = sh(script: 'chmod +x test.sh && ./test.sh', returnStdout: true).trim()
+                    } else {
+                        scriptOutput = bat(script: 'test.bat', returnStdout: true).trim()
+                    }
 
                     // Print the script output
                     echo "Script Output: ${scriptOutput}"
