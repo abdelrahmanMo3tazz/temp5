@@ -8,7 +8,7 @@ pipeline {
                 deleteDir()
 
                 // Checkout the source code from your Git repository
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/your-username/your-repo.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/abdelrahmanMo3tazz/temp5.git']]])
             }
         }
 
